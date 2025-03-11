@@ -1,12 +1,12 @@
 permalink: /:year:month:day/:title
-url: #Your url here
+url: 'https://cherryD0nut.github.io'
 baseurl: /project
 
 # variables
-name: Your Site Name
-description: Your description here
+name: Dev. Yeon
+description: Blog for posting dev journals
 google_verification: null
-
+timezone: Asia/Seoul
 
 # File management
 include: [".htaccess"]
