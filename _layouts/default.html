@@ -29,18 +29,34 @@
 			{% endif %}
 		</div>
 		{% include topbar.html %}
+
+		<!-- 🔽 수정된 부분 시작 -->
 		<div class="tag_list">
 			<ul id="tag-list">
 				<li><a href="/" ><img src="/assets/img/disk.png" />(C:)</a>
 			<ul>
 				{% assign tags = site.tags | sort %}
+				{% assign tag_aliases = "tag1:TIL,tag2:tips,tag3:memo,tag4:diary" | split: "," %}
+				{% assign tag_map = {} %}
+				{% for pair in tag_aliases %}
+				  {% assign kv = pair | split: ":" %}
+				  {% assign tag_map = tag_map | merge: {{ kv[0] | strip }}:{{ kv[1] | strip }} %}
+				{% endfor %}
+
 				{% for tag in tags %}
-				<li><a href="/tag/{{ tag | first | slugify }}/" title="{{ tag[0] | replace:'-', ' ' }}"><img src="/assets/img/folder.ico" />{{ tag[0] | replace:'-', ' ' }}</a></li>
+				  {% assign label = tag_map[tag[0]] | default: tag[0] %}
+				  <li>
+					<a href="/tag/{{ tag | first | slugify }}/" title="{{ label }}">
+					  <img src="/assets/img/folder.ico" />{{ label }}
+					</a>
+				  </li>
 				{% endfor %}
 			</ul>
 				</li>
 			</ul>
 		</div>
+		<!-- 🔼 수정된 부분 끝 -->
+
 		<div class="post_list">
 			{% unless page.date%}
 				{% if page.title == 'me' or page.title == '404...' %}
